@@ -1,0 +1,93 @@
+#-----------------------------------------------
+# REQUIRED SETTINGS
+#-----------------------------------------------
+
+# The theme and skin you're using.
+# For GitHub Pages, we use `remote_theme`.
+#remote_theme: "mmistakes/minimal-mistakes"
+theme: minimal-mistakes-jekyll
+minimal_mistakes_skin: "dark" # Try "air", "dark", "aqua", "neon", etc.
+
+# Site Title and Description
+title: "M. Migas | Portfolio"
+title_separator: "|"
+name: "M. Migas"
+description: "A showcase of my work in game development, rendering with DirectX 12, and computer science."
+url: "https://mmigas.github.io" # Your full website URL
+baseurl: "" # Leave this blank for a user site like yours
+repository: "mmigas/mmigas.github.io" # Your repo name, helps the theme with links
+
+#-----------------------------------------------
+# AUTHOR SIDEBAR (VERY IMPORTANT FOR PORTFOLIOS)
+#-----------------------------------------------
+
+author:
+  name: "Your Full Name"
+  avatar: "/assets/images/profile-pic.jpg" # IMPORTANT: Create this folder and add your photo!
+  bio: "Game Engine Developer & Graphics Programmer. Specializing in C++ and DirectX 12."
+  location: "City, Country"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:your-email@example.com"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/mmigas"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/your-profile-url/" # Add your LinkedIn URL
+    # Add other links like Twitter if you have them
+
+#-----------------------------------------------
+# COLLECTIONS (FOR YOUR PROJECTS)
+#-----------------------------------------------
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+#-----------------------------------------------
+# DEFAULTS
+#-----------------------------------------------
+
+# These settings are applied to all pages and posts by default.
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true # Shows the author sidebar on blog posts
+      share: true
+  # _projects
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: single
+      author_profile: true # Shows the author sidebar on your project pages
+      share: true
+  # _pages
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true # Shows the author sidebar on pages like Home/About
+
+#-----------------------------------------------
+# PLUGINS (For local development)
+#-----------------------------------------------
+plugins:
+  - jekyll-include-cache
+  - jekyll-paginate-v2
+
+# PAGINATION SETTINGS
+pagination:
+  per_page: 3  # Show 3 projects at a time
+  collection: 'projects'
+  permalink: '/page/:num/'
+  sort_field: 'date' # You can add a `date:` field to your projects to sort them
+  sort_reverse: true
