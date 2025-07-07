@@ -80,7 +80,7 @@ html {
 
 .scroll-down-arrow {
   position: absolute;
-  bottom: 2rem; /* Position from the bottom */
+  bottom: 1rem; /* Position from the bottom */
   left: 50%;
   transform: translateX(-50%); /* Horizontally center the arrow */
   z-index: 2;
@@ -93,6 +93,46 @@ html {
 
 .scroll-down-arrow:hover {
   opacity: 1;
+}
+
+/* ADD THIS to the end of assets/css/splash.css */
+
+/* === Hero Avatar & Subtitle Styling === */
+
+.splash-image-wrapper {
+  margin-bottom: 1.0rem; /* Space between the image and your name */
+}
+
+.splash-avatar {
+  width: 250px;  /* Set the size of the circle */
+  height: 250px; /* Must be the same as width for a perfect circle */
+
+  /* THIS IS THE MAGIC FOR THE CIRCLE */
+  border-radius: 50%;
+
+  object-fit: cover; /* Prevents the image from being squished */
+
+  /* Adds a nice, subtle border like the CVless theme */
+  border: 4px solid rgba(255, 255, 255, 0.9);
+
+  /* Adds a soft shadow for depth */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.splash-intro h1 {
+  margin-bottom: 0.25em; /* Reduce space after the name */
+}
+
+.splash-subtitle {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-top: 0;
+  margin-bottom: 1.5rem; /* Space between subtitle and social links */
+}
+
+/* We no longer need the bio at the very bottom */
+.splash-bio {
+  display: none;
 }
 
 /* The bobbing animation keyframes */

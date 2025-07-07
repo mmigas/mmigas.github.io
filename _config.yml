@@ -23,7 +23,7 @@ repository: "mmigas/mmigas.github.io" # Your repo name, helps the theme with lin
 
 author:
   name: "Miguel Faria"
-  avatar: "/assets/images/photo.jpg" # IMPORTANT: Create this folder and add your photo!
+  image: "/assets/images/photo.jpg" # IMPORTANT: Create this folder and add your photo!
   bio: "Game Engine Developer & Graphics Programmer."
   location: "City, Country"
   links:

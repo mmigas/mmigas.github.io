@@ -1,5 +1,4 @@
 ---
-# This layout now controls the entire homepage experience
 layout: default
 ---
 
@@ -13,8 +12,17 @@ layout: default
 
     <!-- The hero content (name, links, bio) -->
     <div class="splash-hero">
-        <div class="splash-intro">
+
+            <!-- ADD THIS WRAPPER for the image -->
+            <div class="splash-image-wrapper">
+                <img src="{{ site.author.image | relative_url }}" alt="Photo of {{ site.author.name }}" class="splash-avatar">
+            </div>
+
             <h1>{{ site.author.name }}</h1>
+
+            <!-- A subtitle/tagline under your name -->
+            <p class="splash-subtitle">{{ site.author.bio }}</p>
+
             <ul class="splash-social-links">
                 {%- for link in site.author.links -%}
                 {%- if link.label and link.url -%}
@@ -22,10 +30,6 @@ layout: default
                 {%- endif -%}
                 {%- endfor -%}
             </ul>
-        </div>
-        <div class="splash-bio">
-            <p>{{ site.author.bio }}</p>
-        </div>
     </div>
     <a href="#projects-section" class="scroll-down-arrow" aria-label="Scroll down">
         <i class="fas fa-angle-down"></i>
