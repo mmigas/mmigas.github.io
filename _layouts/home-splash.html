@@ -13,7 +13,6 @@ layout: default
     <!-- The hero content (name, links, bio) -->
     <div class="splash-hero">
 
-            <!-- ADD THIS WRAPPER for the image -->
             <div class="splash-image-wrapper">
                 <img src="{{ site.author.image | relative_url }}" alt="Photo of {{ site.author.name }}" class="splash-avatar">
             </div>
@@ -29,6 +28,7 @@ layout: default
                 <li><a href="{{ link.url }}" rel="nofollow noopener noreferrer" target="_blank"><i class="{{ link.icon | default: 'fas fa-link' }}" aria-hidden="true"></i><span class="label">{{ link.label }}</span></a></li>
                 {%- endif -%}
                 {%- endfor -%}
+
             </ul>
     </div>
     <a href="#projects-section" class="scroll-down-arrow" aria-label="Scroll down">

@@ -25,17 +25,23 @@ author:
   name: "Miguel Faria"
   image: "/assets/images/photo.jpg" # IMPORTANT: Create this folder and add your photo!
   bio: "Game Engine Developer & Graphics Programmer."
-  location: "City, Country"
+  location: "Lisbon, Portugal"
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:your-email@example.com"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/mmigas"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
-      url: "https://www.linkedin.com/in/your-profile-url/" # Add your LinkedIn URL
+      url: "https://www.linkedin.com/in/miguel-faria-4a3005200/" # Add your LinkedIn URL
+    - label: "X"
+      icon: "fab fa-fw fa-x"
+      url: "https://x.com/mmigas" # Add your Twitter URL if you have one
+    - label: "Instagram"
+      icon: "fab fa-fw fa-instagram"
+      url: "https://www.instagram.com/mmigas100/" # Add your Instagram URL if you have one
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:miguel.al.faria@gmail.com"
     # Add other links like Twitter if you have them
 
 #-----------------------------------------------
