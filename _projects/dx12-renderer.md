@@ -9,9 +9,8 @@ layout: single
 classes:
   - wide
   - no-header
-masthead: false
-header:
-  image: /assets/images/UnityTestImage.png   # Adjust to your path
+#header:
+#  image: /assets/images/UnityTestImage.png   # Adjust to your path
  
 ---
 
