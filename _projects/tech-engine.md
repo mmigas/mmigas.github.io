@@ -1,8 +1,9 @@
 ---
-title: "Tech Engine"
+title: "1. Tech Engine"
 date: 2024-05-01
 excerpt: "A modular C++ game engine built from scratch, featuring an ECS architecture, a native C++ scripting system with hot-reloading, and an integrated editor."
 layout: single
+order: 1
 classes:
   - wide
   - no-header
