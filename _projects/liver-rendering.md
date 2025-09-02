@@ -1,90 +1,129 @@
 ---
 title: "Liver Rendering (Master Thesis)"
 date: 2024-05-01
-excerpt: "Accelerating biophysically-based liver rendering towards real-time interaction by combining path tracing, subsurface scattering, and GPU acceleration."
+excerpt: "My Master Thesis project, which achieved real-time, biophysically-based liver rendering by accelerating volumetric path tracing with a custom CUDA pipeline and AI denoising."
 layout: single
 classes:
   - wide
 ---
 
-## Introduction
+## **Project Overview**
 
-This project was the centerpiece of my Master Thesis, where I set out to address one of the core challenges in biomedical visualization: achieving **realistic and interactive rendering of human organs**, specifically the liver.
+This project was the centerpiece of my Master Thesis, addressing a critical challenge in biomedical visualization: **the trade-off between realism and interactivity in rendering the human liver**. While physically-based models can produce stunningly accurate images for surgical planning and training, their computational cost is immense.
+The original reference model by Nunes et
+al., for example, required **over 21 minutes on a CPU** to render a single frame, making it unusable for interactive applications that demand feedback in milliseconds.
 
-Accurate liver visualization is critical in **medical training simulators** and **pre-operative planning tools**, where both realism and responsiveness are essential. Traditional biophysical models simulate light transport at a very high accuracy but require minutes per frame on a CPU, making them impractical for interactive use. Conversely, simplified real-time models often compromise on visual fidelity, losing the characteristic translucent look of real tissue.
+My research aimed to **bridge this fidelity-performance gap**. I designed and implemented a complete rendering pipeline from the ground up, demonstrating that it is possible to accelerate complex volumetric light transport to real-time speeds through a combination of modern frameworks, custom CUDA implementation, and AI-driven denoising.
 
-My research aimed to **bridge this fidelity-performance gap** by designing a hybrid rendering pipeline:
-- On one side, a **biophysically-accurate reference model** using volumetric path tracing in **Mitsuba 3**, used to validate realism.
-- On the other, a **GPU-accelerated real-time implementation**, using CUDA, OpenGL interoperability, and AI-driven denoising to achieve interactive frame rates while preserving visual detail.
-
-This thesis showed that it is possible to bring **subsurface scattering and volumetric light transport**—phenomena typically reserved for offline rendering—into real-time pipelines suitable for medical visualization.
-
----
-
-## Liver and Light Interaction
-
-The realism of liver visualization comes primarily from the way light interacts with its layered tissue structure:
-
-- **Glisson’s Capsule** – the thin, fibrous outer membrane of the liver, composed largely of collagen and elastin. These fibers cause **surface scattering** and subtle specular reflections.
-- **Hepatic Parenchyma** – the inner bulk tissue of the liver, which exhibits **strong volumetric scattering** due to cells and blood vessels, combined with **wavelength-dependent absorption** from hemoglobin. This gives the liver its characteristic reddish-brown appearance.
-- **Optical Properties** – absorption and scattering coefficients vary across wavelengths, meaning red light penetrates deeper than blue or green. This results in the soft reddish glow visible when the liver is illuminated.
-- **Subsurface Scattering (SSS)** – light entering the surface can travel through the tissue, scatter multiple times, and exit at a different point, producing the distinctive translucent effect crucial for realism.
-
-By combining these physical principles in a rendering model, the project was able to simulate **true tissue optics**, rather than relying on approximate textures or shading tricks.
+> **Key Achievements:**
+> * **Massive Performance Gain:** Achieved a **>50x speedup** for the high-fidelity offline model by porting it to a modern GPU framework (Mitsuba 3/Dr.Jit).
+> * **Real-Time Volumetric Path Tracing:** Developed a dedicated real-time pipeline capable of rendering the complex biophysical model at **24-31 FPS**.
+> * **Custom CUDA/C++ Implementation:** Built a custom "Bio-Volumetric Integrator" and real-time application in C++ to manage the unique optical properties of liver tissue.
+> * **Advanced Denoising Analysis:** Implemented and quantitatively compared two different real-time denoising solutions: NVIDIA's OptiX AI Denoiser and Temporal Accumulation.
 
 ---
 
-## Features
+## **The Technology & Approach**
 
-- **Biophysically-Inspired Modeling:** Layered structure (Glisson Capsule + Hepatic Parenchyma) with measured optical parameters from biomedical literature.
-- **Photographic Reconstruction:** Liver mesh generated with multi-view photogrammetry and marching cubes, ensuring geometric accuracy.
-- **Subsurface Scattering Simulation:** Implemented both reference volumetric path tracing and a learned BSSRDF approximation for faster evaluation.
-- **Path Tracing & GPU Acceleration:** Realistic light transport solved via CUDA and RTX hardware, achieving >50x speedup compared to CPU.
-- **AI-Accelerated Denoising:** Integrated NVIDIA OptiX denoiser and temporal accumulation for real-time reconstruction of noisy 1-spp renders.
-- **Validation with Mitsuba 3:** Ensured consistency against a physically accurate offline renderer.
-- **Custom Real-Time Renderer:** Built from scratch in C++ with OpenGL display integration for interactive visualization.
+The visual realism of the liver is dominated by **subsurface scattering (SSS)**—the phenomenon where light penetrates the tissue, scatters multiple times internally, and exits at a different point. To capture this, my model was grounded in two core principles: geometric accuracy and biophysical accuracy.
+
+#### **Geometric & Optical Modeling**
+
+First, a geometrically precise liver mesh was reconstructed from photographs using multi-view photogrammetry. Then, a layered material model was developed based on biomedical literature, assigning distinct optical properties (absorption and scattering coefficients) to the outer **Glisson's Capsule** and the inner **Hepatic Parenchyma**, ensuring the simulation was grounded in
+real-world tissue optics.
+
+<figure class="center-image medium-image">
+    <img src="/assets/images/LiverRenderer/mesh/LiverMeshes.png" alt="A 3D mesh of the human liver reconstructed using photogrammetry."
+         alt="A 3D mesh of the human liver reconstructed using photogrammetry."
+         style="max-width: 550px; display: block; margin-left: auto; margin-right: auto;">
+    <figcaption>The geometrically accurate liver mesh generated via photographic reconstruction.</figcaption>
+</figure>
+
+#### **High-Fidelity offline Renderer**
+
+To establish a "ground truth" for visual quality, a high-fidelity offline renderer was built in **Mitsuba 3** using **volumetric path tracing**. This physically-based technique produces photorealistic results by simulating the complex journey of light within the tissue. Two configurations were implemented: a complex two-mesh model with distinct layers for the capsule and
+parenchyma, and a simplified single-mesh model that proved to be more performant while maintaining high visual fidelity.
+
+<figure class="center-image medium-image">
+    <img src="/assets/images/LiverRenderer/highFidelity/liver-singlemesh.png"
+    alt="A high-fidelity rendering of the liver showing realistic subsurface scattering."
+    style="max-width: 550px; display: block; margin-left: auto; margin-right: auto;">
+    <figcaption>The final high-fidelity offline render, produced using the optimized single-mesh model.</figcaption>
+</figure>
+
+<figure class="center-image medium-image">
+    <img src="/assets/images/LiverRenderer/highFidelity/LiverComparisons.png"
+    alt="Comparison with the Nunes et al. model with the multi mesh and single mesh model.">
+    <figcaption>Comparison with the Nunes et al. model with the multi mesh and single mesh model.</figcaption>
+</figure>
 
 ---
 
-## Challenges & Learning
+## **The Real-Time Pipeline**
 
-- **Performance Bottleneck:** Volumetric path tracing is computationally heavy. Achieving 24–31 FPS required a combination of GPU acceleration, single-sample rendering, and AI denoising.
-- **Optical Parameter Adaptation:** Translating biomedical optical data (scattering and absorption coefficients) into rendering parameters required extensive calibration.
-- **Noise and Artifacts:** Real-time rendering with low sample counts introduced noise, ghosting (in temporal accumulation), and over-smoothing (in AI denoising). Each technique had distinct trade-offs.
-- **Balancing Fidelity and Speed:** Learned BSSRDF models provided faster approximations but sometimes lacked fine tissue detail compared to full volumetric scattering.
-- **System Integration:** Building a consistent pipeline between Mitsuba 3 (reference) and the custom renderer required careful synchronization of material models and sampling strategies.
+The project's core innovation was designing a dedicated real-time pipeline to accelerate the simulation. This was not a simple port, but a ground-up implementation combining several key technologies:
+
+1. **GPU Acceleration:** The entire path tracing algorithm was implemented in **C++ and CUDA**, leveraging modern RTX hardware.
+2. **Low Sample Rendering:** To meet a strict millisecond budget, only one light path (sample) was calculated per pixel, per frame, resulting in a mathematically correct but extremely noisy image.
+3. **Advanced Denoising:** The noisy output was reconstructed into a clean, stable image using one of two advanced denoising techniques, which were implemented and analyzed.
+
+This pipeline allows for the interactive exploration of a visual phenomenon that was previously restricted to offline rendering.
+
+<figure class="center-image medium-image">
+    <img src="/assets/images/LiverRenderer/realtime/RenderingPipeline.png" alt="A diagram showing the real-time rendering pipeline from noisy render to denoised output.">
+    <figcaption>The real-time pipeline: a 1-SPP render is reconstructed into a clean image via advanced denoising.</figcaption>
+</figure>
+
+---
+
+## **Results & Demonstration**
+
+The final system successfully achieved its goal of interactive, high-fidelity rendering. Quantitative analysis using metrics like Root Mean Squared Error (RMSE) and Structural Similarity Index (SSIM) confirmed the effectiveness of the pipeline and provided deep insights into the trade-offs of different real-time denoising methods.
+
+<figure class="center-image medium-image">
+    <img src="/assets/images/LiverRenderer/results/RSMEMaps.png" alt="RMSE maps comparing the denoising techniques to the ground truth.">
+    <figcaption>Quantitative error maps (RMSE) comparing the real-time outputs to the high-fidelity offline.</figcaption>
+</figure>
+
+The videos below showcase the two primary real-time configurations:
+
+#### **OptiX AI Denoising**
+
+This approach uses the NVIDIA OptiX AI Denoiser, which provides a **temporally stable and clean image** that is well-suited for fast camera movement and interaction. While effective, it introduces a noticeable performance overhead (~9ms per frame) and can sometimes produce slight blurring or visual artifacts, as reflected in its quantitative scores.
+
+<figure class="center-image">
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="/assets/images/LiverRenderer/results/Optix.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <figcaption>Real-time rendering at ~24 FPS using the OptiX AI Denoiser.</figcaption>
+</figure>
+
+#### **Temporal Accumulation**
+
+This technique amortizes noise by blending the current frame with a history of past frames. For static scenes, it produces **visually superior results with sharper details**. Crucially, its computational cost is negligible, allowing the pipeline to run much faster (~31 FPS). However, its major limitation is the introduction of severe **ghosting artifacts** during camera
+movement, as no history invalidation was implemented.
+
+<figure class="center-image">
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="/assets/images/LiverRenderer/results/Temporal.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <figcaption>Real-time rendering at ~31 FPS using Temporal Accumulation, showing high quality when static.</figcaption>
+</figure>
 
 ---
 
-## Results
+## **Challenges & Key Learnings**
 
-- **High-Fidelity Model:** Achieved offline results closely matching state-of-the-art liver renderings, with over 50x speedup on GPU compared to CPU implementations.
-- **Real-Time Pipeline:** Achieved interactive frame rates (24–31 FPS) while maintaining recognizable biophysical tissue effects.
-- **Comparisons:** Quantitative metrics (RMSE, SSIM) showed trade-offs between learned models, AI denoising, and temporal accumulation, with clear visual demonstrations of strengths and weaknesses.
-- **Applications:** Demonstrated potential for **medical visualization, surgical planning, and educational simulators** where both realism and interactivity are critical.
+* **Performance Engineering:** Achieving real-time frame rates with volumetric path tracing was a significant challenge requiring a deep dive into GPU architecture, CUDA optimization, and profiling the trade-offs between different denoising techniques.
+* **Parameter Calibration:** Translating optical data from dense biomedical literature into parameters usable by a renderer was a complex process of research, calibration, and validation.
+* **System Integration:** Building a consistent pipeline between the Mitsuba 3 reference renderer and the custom real-time application required careful synchronization of material models, sampling strategies, and color spaces.
 
----
-### Media
+## **Conclusion & Contributions**
 
-#### Mesh Reconstruction
-<!-- #![Liver Mesh Reconstruction](/assets/images/liver_mesh.png) -->
+This thesis successfully demonstrated that *real-time, biophysically-based rendering of complex biological tissue is feasible*. By combining GPU acceleration, modern rendering algorithms, and AI, the work opens new opportunities for interactive biomedical visualization.
 
-#### High-Fidelity Rendering
-<!-- ![High-Fidelity Render](/assets/images/liver_render_high.png) -->
+The full thesis document, which details the methodology, experiments, and results, is available for review.
 
-#### Real-Time Rendering Pipeline
-<!-- ![Real-Time Pipeline](/assets/images/liver_realtime_pipeline.png) -->
-
-#### Rendering Comparison (Video)
-<!-- [![Rendering Comparison Video](/assets/images/video_thumbnail.png)](https://www.youtube.com/watch?v=YOUR_VIDEO_LINK) -->
-
-## Conclusion
-
-This project demonstrated that *real-time, biophysically-based rendering of complex biological tissue is feasible*. By accelerating subsurface scattering and path tracing on the GPU, the work opens opportunities for **interactive biomedical visualization**.
-
-The contributions were threefold:
-1. An optimized **GPU-accelerated reference model** for high-fidelity volumetric path tracing.
-2. An adapted **learned BSSRDF model** to approximate scattering more efficiently.
-3. A **dedicated real-time rendering pipeline** with AI denoising and OpenGL interoperability.
-
-The full thesis document detailing the methodology, experiments, and results can be found [here](https://your-thesis-link.com).
+**[Read the Full Thesis (Link to PDF)](/assets/pdf/Thesis.pdf)**
