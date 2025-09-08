@@ -72,13 +72,10 @@ layout: default
                 {% endfor %}
             </div><!-- /.my-project-list -->
 
-            <!-- "Load More" button logic (this part is fine) -->
             {% if paginator.next_page %}
-            <nav class="pagination">
-                <button id="load-more" class="btn btn--large" data-next-page-url="{{ paginator.next_page_path | relative_url }}">
-                    Load More
-                </button>
-            </nav>
+            <div id="infinite-scroll-trigger" data-next-page-url="{{ paginator.next_page_path | relative_url }}">
+                <div class="loader">Loading...</div>
+            </div>
             {% endif %}
 
         </div><!-- /.wrapper -->
@@ -92,4 +89,4 @@ layout: default
 <script src="{{ '/assets/js/particles.min.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/app.js' | relative_url }}"></script>
 <!-- "Load More" button script -->
-<script src="{{ '/assets/js/load-more.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/infinite-scroll.js' | relative_url }}"></script>

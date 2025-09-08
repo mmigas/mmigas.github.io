@@ -244,3 +244,16 @@ figure.center-image figcaption {
         font-size: 0.8125rem;
     }
 }
+
+
+/* --- Infinite Scroll Styles --- */
+#infinite-scroll-trigger {
+    padding: 2rem 0; /* Gives some space at the bottom */
+    text-align: center;
+}
+
+#infinite-scroll-trigger .loader {
+    display: none; /* Hide the loader by default */
+    font-style: italic;
+    color: #666;
+}
