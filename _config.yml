@@ -9,9 +9,9 @@ plugins:
   - jekyll-paginate-v2
 
 # Site Title and Description
-title: "M. Migas | Portfolio"
+title: "Miguel Faria - Portfolio"
 title_separator: "|"
-name: "M. Migas"
+name: "Miguel Faria"
 description: "A showcase of my work in game development, rendering with DirectX 12, and computer science."
 url: "https://mmigas.github.io" # Your full website URL
 baseurl: "" # Leave this blank for a user site like yours
@@ -65,7 +65,8 @@ defaults:
     values:
       layout: single
       author_profile: true # Shows the author sidebar on your project pages
-      share: true
+      share: false
+      show_pagination: false
   # _pages
   - scope:
       path: ""
@@ -84,7 +85,7 @@ collections:
 pagination:
   enabled: true
   collection: 'projects'
-  per_page: 3
+  per_page: 5
   sort_field: 'date'
   sort_reverse: true
 
