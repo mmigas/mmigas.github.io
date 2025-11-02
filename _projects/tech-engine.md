@@ -9,7 +9,7 @@ classes:
   - no-header
 ---
 
-## **Project Overview: The Vision for Tech Engine**
+# **Project Overview: The Vision for Tech Engine**
 
 Tech Engine is a custom game engine built entirely from scratch in **C++**. At its heart, this project is an educational journey to deconstruct and master the complex systems that bring interactive experiences to life. While the core purpose is learning, the ultimate ambition is to build a robust and performant framework for developing complete games, from indie projects to
 multiplayer experiences.
@@ -33,13 +33,39 @@ The foundation of the engine, the Core module abstracts the underlying operating
 
 ### **ECS Architecture**
 
-At the heart of object management is an **Entity-Component-System (ECS)** architecture. This modern, data-oriented design promotes composition over inheritance. By storing component data in contiguous memory blocks, the ECS is highly cache-friendly, which significantly boosts performance when iterating over large numbers of objects.
+The engine's core architecture was re-designed and built around a modern, data-oriented Entity-Component System (ECS). This approach focuses on optimizing memory layout to ensure high cache efficiency, which is critical for performance when managing a large number of objects.
+By organizing component data in contiguous memory blocks, the engine can efficiently iterate, process, and update over 1 million active entities in real-time, as demonstrated here, while maintaining high framerates. This design is fundamental to the engine's ability to scale and handle complex scenes.
 
-## **System Deep Dive**
+# **System Deep Dive**
 
-### **Rendering & Resource Management**
+## **Rendering System**
 
-The rendering pipeline is built on the **OpenGL** API. Its primary job is to translate scene data into the final rendered image. As this was the first renderer I built from scratch, the current implementation is simple but serves as a strong foundation for future evolution into a modern pipeline with PBR materials and post-processing effects.
+The rendering pipeline is built on the **OpenGL** API. Its primary job is to translate scene data into the final rendered image. Im in the process of rewriting it to support more modern techniques that improve tremendously the visual quality and performance.
+
+### **Multi-Draw Indirect Rendering**
+
+To achieve maximum performance, the engine uses Multi-Draw Indirect (MDI).
+This modern OpenGL technique allows the engine to render a vast number of objects using a single, highly efficient draw call.
+By batching rendering commands for the GPU, it dramatically reduces CPU overhead, making it possible to render scenes with thousands of instances while maintaining high framerates.
+
+<figure class="center-image">
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="/assets/images/TechEngine/ecs/1millionEntities.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <figcaption>Showcasing the performance of Multi-Draw Indirect rendering.</figcaption>
+</figure>
+<!--
+### **PBR Pipeline**
+
+For the materials shading, I implemented an Cook-Torrance based **Physically Based Rendering (PBR)** pipeline.
+This approach simulates how light interacts with surfaces in a realistic manner, using parameters like albedo, metallic, roughness, and ambient occlusion to define material properties.
+
+### **Lights & Shadows**
+
+-->
+
+## **Resource Management**
 
 A dedicated resource management system handles the loading, caching, and lifetime of assets like models (`.obj`, `.fbx`), textures (`.png`, `.jpg`), and shaders to ensure efficient memory usage.
 
@@ -48,7 +74,7 @@ A dedicated resource management system handles the loading, caching, and lifetim
   <figcaption>A 3D model with textures loaded and rendered within the editor.</figcaption>
 </figure>
 
-### **Physics System**
+## **Physics System**
 
 To manage complex physics simulations efficiently, Tech Engine integrates the battle-tested **Jolt Physics** library. This provides a robust, high-performance solution for collision detection and rigid body dynamics, allowing objects to be affected by forces, gravity, and collisions in a stable and predictable manner.
 
@@ -60,11 +86,11 @@ To manage complex physics simulations efficiently, Tech Engine integrates the ba
   <figcaption>Gameplay demonstrating the Jolt Physics integration and C++ scripting system.</figcaption>
 </figure>
 
-### **Native C++ Scripting System**
+## **Native C++ Scripting System**
 
 The scripting system is a core feature, designed to provide the raw performance of C++ with a modern, high-iteration workflow. Game logic is written in C++ and compiled into dynamic libraries (`.dll`), which the engine can load, manage, and even reload at runtime.
 
-#### **Live Hot-Reloading**
+### **Live Hot-Reloading**
 
 Developers can change game logic, recompile, and the engine will **hot-reload** the changes *without restarting*. This creates an incredibly rapid iteration loop, as seen in the demo where a script's behavior is modified and updated live in the running engine.
 
@@ -76,7 +102,7 @@ Developers can change game logic, recompile, and the engine will **hot-reload** 
     <figcaption>A script is recompiled externally and its behavior is updated live in the engine.</figcaption>
 </figure>
 
-#### **Integrated Crash Handling**
+### **Integrated Crash Handling**
 
 Stability during development is critical. If a script encounters a critical error, the engine's crash handler safely pauses the simulation and provides a detailed error message and function stack trace, allowing the developer to pinpoint the bug's origin instantly.
 
@@ -88,7 +114,7 @@ Stability during development is critical. If a script encounters a critical erro
     <figcaption>The crash handler safely stops the simulation and provides a stack trace for debugging.</figcaption>
 </figure>
 
-### **Audio System**
+## **Audio System**
 
 The audio system is powered by the lightweight **miniaudio** library. It supports 3D spatialized audio, allowing sounds to be positioned in the game world for a more immersive experience using a standard Listener/Source component system.
 
@@ -100,7 +126,7 @@ The audio system is powered by the lightweight **miniaudio** library. It support
     <figcaption>A 3D spatialized sound demonstrating the miniaudio integration.</figcaption>
 </figure>
 
-### **Scene Management & Live Simulation**
+## **Scene Management & Live Simulation**
 
 The engine's scene management is built upon a robust serialization system using the human-readable **YAML** format. This allows for the complete state of a scene—including all entities and their component data—to be saved to and loaded from disk, which is fundamental for creating, editing, and sharing levels.
 
