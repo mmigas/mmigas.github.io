@@ -150,7 +150,6 @@ modifying component properties on the fly.
 
 To aid in development and debugging, a built-in logger panel captures all engine messages, warnings, and errors in real-time. Furthermore, the editor features a dedicated UI editor, empowering developers to visually construct and edit in-game interfaces directly within the engine.
 
-<!-- This is the most important image to add. A great shot of the editor makes the whole project feel real and professional. -->
 <figure class="center-image">
     <img src="/assets/images/TechEngine/editor/Editor.png" alt="A screenshot of the Tech Engine editor interface.">
     <figcaption>The Tech Engine editor, showcasing the game viewport, scene hierarchy, inspector, assets browser, logger, and UI editor panels.</figcaption>
