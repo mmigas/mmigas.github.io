@@ -55,12 +55,39 @@ By batching rendering commands for the GPU, it dramatically reduces CPU overhead
   </video>
   <figcaption>Showcasing the performance of Multi-Draw Indirect rendering.</figcaption>
 </figure>
-<!--
+
 ### **PBR Pipeline**
 
-For the materials shading, I implemented an Cook-Torrance based **Physically Based Rendering (PBR)** pipeline.
-This approach simulates how light interacts with surfaces in a realistic manner, using parameters like albedo, metallic, roughness, and ambient occlusion to define material properties.
+To achieve realistic material rendering, the engine features a Physically Based Rendering (PBR) pipeline.
+This approach simulates how light interacts with surfaces using physical properties like albedo, metallic, and roughness, ensuring materials look correct under different lighting conditions.
+<figure class="center-image">
+  <img src="/assets/images/TechEngine/PBR/PBR_Textures.png" alt="Backpack Model loaded in the TechEngine editor">
+  <figcaption>PBR materials rendered with direct lighting only.</figcaption>
+</figure>
 
+While direct lighting works for basic illumination, it can leave materials looking flat, as they don't reflect the surrounding environment.
+A simple ambient term can help, but for true realism, the next section is needed.
+
+### **Image-Based Lighting (IBL)**
+
+The engine implements Image-Based Lighting (IBL) to generate realistic ambient light from an HDR environment map. This technique grounds objects in the scene by allowing them to be lit by and reflect their surroundings.
+First, the HDR environment map is rendered as a dynamic skybox.
+
+<figure class="center-image">
+    <img src="/assets/images/TechEngine/PBR/TextureSkyBox.png" alt="PBR materials with an HDR skybox in the background.">
+    <figcaption>The scene with the environment map rendered as a skybox.</figcaption>
+</figure>
+
+The engine then pre-computes an irradiance map for realistic diffuse ambient light and a pre-filtered cubemap for accurate specular reflections across different material roughness levels.
+By sampling these pre-calculated maps, materials can reflect the environment convincingly.
+The final result is a cohesive scene where all materials, from rough plastics to shiny metals, are naturally lit and grounded in the world.
+
+<figure class="center-image">
+    <img src="/assets/images/TechEngine/PBR/TextureIBL.png" alt="The final scene with full IBL rendering.">
+    <figcaption>The final render with Image-Based Lighting accurately illuminating all materials.</figcaption>
+</figure>
+
+<!--
 ### **Lights & Shadows**
 
 -->
