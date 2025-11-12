@@ -65,10 +65,20 @@ In the demo below, you can see the engine rendering a scene with over 400 dynami
 
 <figure class="center-image">
   <video width="100%" controls autoplay loop muted playsinline>
-    <source src="/assets/images/TechEngine/clusterForwardRendering/ClusterHeatMap.mp4" type="video/mp4">
+    <source src="/assets/images/TechEngine/clusterForwardRendering/MultipleLightsActive.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <figcaption>Showcasing the performance of Multi-Draw Indirect rendering.</figcaption>
+</figure>
+
+and a visualization of the clustered grid used for light culling.
+
+<figure class="center-image">
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="/assets/images/TechEngine/clusterForwardRendering/ClusterVisualization.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <figcaption>Visualization of the clustered grid used for light culling.</figcaption>
 </figure>
 
 ### **PBR Pipeline**
