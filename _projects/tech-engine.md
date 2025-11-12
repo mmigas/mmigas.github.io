@@ -75,7 +75,7 @@ and a visualization of the clustered grid used for light culling.
 
 <figure class="center-image">
   <video width="100%" controls autoplay loop muted playsinline>
-    <source src="/assets/images/TechEngine/clusterForwardRendering/ClusterVisualization.mp4" type="video/mp4">
+    <source src="/assets/images/TechEngine/clusterForwardRendering/ClusterHeatMap.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <figcaption>Visualization of the clustered grid used for light culling.</figcaption>
