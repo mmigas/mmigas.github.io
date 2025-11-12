@@ -56,29 +56,30 @@ By batching rendering commands for the GPU, it dramatically reduces CPU overhead
   <figcaption>Showcasing the performance of Multi-Draw Indirect rendering.</figcaption>
 </figure>
 
-### Cluster Forward Rendering
+### **Clustered Forward Rendering**
 
-The engine employs a **Cluster Forward Rendering**, based on _Ola Olsson et al._ paper, approach to efficiently handle scenes with numerous dynamic lights.
-This technique divides the 3D scene into a grid of clusters, allowing the engine to determine which lights affect which clusters.
-By limiting lighting calculations to only the relevant lights for each cluster, the engine optimizes performance while still delivering high-quality lighting effects.
-In the demo below, you can see the engine rendering a scene with over 400 dynamic lights while maintaining a smooth framerate.
+To efficiently render scenes with hundreds of dynamic lights, the engine implements a **Clustered Forward Rendering** pipeline.
+The approach is based on the influential research paper by [Ola Olsson et al.](https://www.cse.chalmers.se/~uffe/clustered_shading_preprint.pdf) and works by dividing the camera's frustum into a 3D grid.
+By pre-assigning lights to their corresponding clusters, the engine can instantly cull irrelevant lights and perform calculations only where needed.
+
+The demo below showcases the engine rendering a scene with over 400 real-time dynamic lights while maintaining a high framerate.
 
 <figure class="center-image">
   <video width="100%" controls autoplay loop muted playsinline>
     <source src="/assets/images/TechEngine/clusterForwardRendering/MultipleLightsActive.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-  <figcaption>Showcasing the performance of Multi-Draw Indirect rendering.</figcaption>
+  <figcaption>A scene rendered with over 400 dynamic lights at a high framerate.</figcaption>
 </figure>
 
-and a visualization of the clustered grid used for light culling.
+A debug view visualizes the 3D cluster grid, showing how efficiently lights are distributed and culled across the scene.
 
 <figure class="center-image">
   <video width="100%" controls autoplay loop muted playsinline>
     <source src="/assets/images/TechEngine/clusterForwardRendering/ClusterHeatMap.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-  <figcaption>Visualization of the clustered grid used for light culling.</figcaption>
+  <figcaption>Visualization of the 3D cluster grid used for efficient light culling.</figcaption>
 </figure>
 
 ### **PBR Pipeline**
