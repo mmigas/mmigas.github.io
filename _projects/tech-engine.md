@@ -113,11 +113,21 @@ The final result is a cohesive scene where all materials, from rough plastics to
     <figcaption>The final render with Image-Based Lighting accurately illuminating all materials.</figcaption>
 </figure>
 
-<!--
-### **Lights & Shadows**
+### **Bloom**
 
--->
+To add a soft, realistic glow around bright light sources, the engine implements a physically based **Bloom** effect.
+The implementation is based on the modern technique detailed in this [LearnOpenGL guest article](https://learnopengl.com/Guest-Articles/2022/Phys.-Based-Bloom).
+The algorithm works by progressively downsampling the HDR image to isolate bright areas.
+A blur filter is then applied to these lower-resolution images, which are finally upsampled and additively blended back onto the original scene.
+This creates a natural-looking and energy-conserving glow that enhances the visual quality of the final render.
 
+<figure class="center-image">
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="/assets/images/TechEngine/bloom/BloomManyLights.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <figcaption>The bloom effect adding a soft, emissive glow to the scene's brightest areas.</figcaption>
+</figure>
 ## **Resource Management**
 
 A dedicated resource management system handles the loading, caching, and lifetime of assets like models (`.obj`, `.fbx`), textures (`.png`, `.jpg`), and shaders to ensure efficient memory usage.
