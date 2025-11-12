@@ -56,6 +56,21 @@ By batching rendering commands for the GPU, it dramatically reduces CPU overhead
   <figcaption>Showcasing the performance of Multi-Draw Indirect rendering.</figcaption>
 </figure>
 
+### Cluster Forward Rendering
+
+The engine employs a **Cluster Forward Rendering**, based on _Ola Olsson et al._ paper, approach to efficiently handle scenes with numerous dynamic lights.
+This technique divides the 3D scene into a grid of clusters, allowing the engine to determine which lights affect which clusters.
+By limiting lighting calculations to only the relevant lights for each cluster, the engine optimizes performance while still delivering high-quality lighting effects.
+In the demo below, you can see the engine rendering a scene with over 400 dynamic lights while maintaining a smooth framerate.
+
+<figure class="center-image">
+  <video width="100%" controls autoplay loop muted playsinline>
+    <source src="/assets/images/TechEngine/clusterForwardRendering/ClusterHeatMap.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <figcaption>Showcasing the performance of Multi-Draw Indirect rendering.</figcaption>
+</figure>
+
 ### **PBR Pipeline**
 
 To achieve realistic material rendering, the engine features a Physically Based Rendering (PBR) pipeline.
