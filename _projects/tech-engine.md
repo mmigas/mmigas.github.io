@@ -59,7 +59,7 @@ By batching rendering commands for the GPU, it dramatically reduces CPU overhead
 ### **Clustered Forward Rendering**
 
 To efficiently render scenes with hundreds of dynamic lights, the engine implements a **Clustered Forward Rendering** pipeline.
-The approach is based on the influential research paper by [Ola Olsson et al.](https://www.cse.chalmers.se/~uffe/clustered_shading_preprint.pdf) and works by dividing the camera's frustum into a 3D grid.
+The approach is based on the research paper by [Ola Olsson et al.](https://www.cse.chalmers.se/~uffe/clustered_shading_preprint.pdf) and works by dividing the camera's frustum into a 3D grid.
 By pre-assigning lights to their corresponding clusters, the engine can instantly cull irrelevant lights and perform calculations only where needed.
 
 The demo below showcases the engine rendering a scene with over 400 real-time dynamic lights while maintaining a high framerate.
