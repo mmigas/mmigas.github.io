@@ -128,6 +128,26 @@ This creates a natural-looking and energy-conserving glow that enhances the visu
   </video>
   <figcaption>The bloom effect adding a soft, emissive glow to the scene's brightest areas.</figcaption>
 </figure>
+
+### **Ambient Occlusion**
+
+To ground objects and add realistic depth, the engine implements a modern **Screen Space Ambient Occlusion** effect.
+The technique is based on the research paper by [Oliver Therrien et al.](https://arxiv.org/pdf/2301.11376)
+Unlike traditional SSAO, which darkens crevices uniformly, this approach considers the direction of surrounding surfaces.
+This allows it to generate more accurate, elongated shadows in grooves and around objects, resulting in a more natural and physically plausible image.
+
+<figure class="center-image">
+    <img src="/assets/images/TechEngine/ssao/WithoutSSAO.png" alt="The scene rendered without ambient occlusion.">
+  <figcaption>The scene rendered without ambient occlusion.</figcaption>
+</figure>
+
+<figure class="center-image">
+    <img src="/assets/images/TechEngine/ssao/WithSSAO.png" alt="The same scene with ambient occlusion enabled.">
+  <figcaption>The same scene with ambient occlusion adding subtle, realistic contact shadows.</figcaption>
+</figure>
+
+A key advantage of this implementation is that it also lays the groundwork for more advanced, real-time global illumination and indirect lighting in the future.
+
 ## **Resource Management**
 
 A dedicated resource management system handles the loading, caching, and lifetime of assets like models (`.obj`, `.fbx`), textures (`.png`, `.jpg`), and shaders to ensure efficient memory usage.
