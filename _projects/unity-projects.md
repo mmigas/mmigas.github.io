@@ -132,10 +132,16 @@ style="width: 240px; height: auto; max-width: 100%;">
 
 ### **Gameplay Showcase**
 
-<video width="100%" controls>
-  <source src="/assets/images/UnityProjects/BallFlicker/Video/GameplayShowcase.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-<figcaption><i>Video: Mobile gameplay showing the drag-to-shoot mechanic and infinite level generation.</i></figcaption>
+<figure style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px 0; width: 100%;">
+
+  <video width="100%" controls style="max-width: 100%; display: block;">
+    <source src="/assets/images/UnityProjects/BallFlicker/Video/GameplayShowcase.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <figcaption style="font-size:0.875rem; line-height:1.2; color:#666; text-align:center; font-style:italic; margin-top:10px;">
+    Video: Mobile gameplay showing the drag-to-shoot mechanic and infinite level generation.
+  </figcaption>
+</figure>
 
 ---
