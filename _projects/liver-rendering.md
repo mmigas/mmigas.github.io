@@ -1,9 +1,9 @@
 ---
-title: "3. Liver Rendering (Master Thesis)"
+title: "2. Liver Rendering (Master Thesis)"
 date: 2024-05-01
 excerpt: "My Master Thesis project, which achieved real-time, biophysically-based liver rendering by accelerating volumetric path tracing with a custom CUDA pipeline and AI denoising."
 layout: single
-order: 3
+order: 2
 classes:
   - wide
 ---

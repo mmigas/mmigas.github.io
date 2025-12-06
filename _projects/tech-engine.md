@@ -11,7 +11,8 @@ classes:
 
 # **Project Overview: The Vision for Tech Engine**
 
-Tech Engine is a custom game engine built entirely from scratch in **C++**. At its heart, this project is an educational journey to deconstruct and master the complex systems that bring interactive experiences to life. While the core purpose is learning, the ultimate ambition is to build a robust and performant framework for developing complete games, from indie projects to
+Tech Engine is a custom game engine built entirely from scratch in **C++**. This project is an educational journey to deconstruct and master the complex systems that bring interactive experiences to life.
+While the core purpose is learning, the ultimate ambition is to build a robust and performant framework for developing complete games, from indie projects to
 multiplayer experiences.
 
 <!-- This highlight box is for skimmers (like recruiters) to instantly see your key achievements. -->
