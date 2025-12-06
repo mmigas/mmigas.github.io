@@ -118,9 +118,7 @@ The game features a polished menu system with seamless scene transitions. I util
 
 <figure style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px 0; width: 100%;">
 
-<img src="/assets/images/UnityProjects/BallFlicker/Images/MainMenu.jpg"
-alt="Main menu"
-style="width: 240px; height: auto; max-width: 100%;">
+<img src="/assets/images/UnityProjects/BallFlicker/Images/MainMenu.jpg" alt="Main menu" style="width: 240px; height: auto; max-width: 100%;">
 
   <!-- Removed max-width here so text stays on one line -->
   <figcaption style="font-size:0.875rem; line-height:1.2; color:#666; text-align:center; font-style:italic; margin-top:10px;">
@@ -129,12 +127,11 @@ style="width: 240px; height: auto; max-width: 100%;">
 
 </figure>
 
-
 ### **Gameplay Showcase**
 
 <figure style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px 0; width: 100%;">
 
-  <video width="100%" controls style="max-width: 100%; display: block;">
+  <video width="100%" controls style="width: 240px; height: auto; max-width: 100%;">
     <source src="/assets/images/UnityProjects/BallFlicker/Video/GameplayShowcase.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
